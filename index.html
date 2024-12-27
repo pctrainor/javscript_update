@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>JavaScript Evolution: 2014-2024</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body { font-family: sans-serif; padding: 10px; background-color: #2e2e2e; color: #f4f3f3; }
+    h2 { color: #ebb40f; }
+    pre { background-color: #494949; padding: 10px; border-radius: 5px; overflow-x: auto; }
+    code { font-family: monospace; color: white; }
+    .example { margin-bottom: 20px; }
+    input[type="number"], input[type="text"], button {
+      width: 100%;
+      max-width: 300px;
+      margin: 5px 0;
+      padding: 10px;
+      box-sizing: border-box;
+    }
+    button { background-color: #ebb40f; color: #ffffff; border: none; cursor: pointer; }
+    button:hover { background-color: #ffcc29; }
+    button:active { background-color: #d4a30f; }
+    #arrow-function-example { display: flex; flex-wrap: wrap; }
+    a { color: #f617b7f6; }
+    @media (min-width: 600px) {
+      input[type="number"], input[type="text"], button {
+        max-width: 200px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <h1>JavaScript Evolution (2014-2024)</h1>
+
+  <section class="example">
+    <h2>1. ES6 (ECMAScript 2015) - A Game Changer</h2>
+    <p>ES6 was a major update to JavaScript, introducing a wide range of features that modernized the language and improved developer productivity. Here are some of the key additions:</p>
+    <div id="arrow-function-example">
+      <input type="number" id="num1" placeholder="Enter number 1">
+      <input type="number" id="num2" placeholder="Enter number 2">
+      <button onclick="calculateSum()">Calculate Sum</button>
+      <p id="sum-result"></p>
+    </div>
+    <script>
+      function calculateSum() {
+        const num1 = parseFloat(document.getElementById('num1').value);
+        const num2 = parseFloat(document.getElementById('num2').value);
+        const sum = (a, b) => a + b; // Arrow function
+        document.getElementById('sum-result').textContent = "Sum: " + sum(num1, num2);
+      }
+    </script>
+    <ul>
+      <li><b>Arrow functions:</b> Provide a more concise syntax for writing functions, especially useful for short, anonymous functions.
+        <pre><code>
+// Traditional function expression
+const sum1 = function(a, b) { return a + b; };
+
+// Arrow function equivalent
+const sum2 = (a, b) => a + b;
+        </code></pre>
+      </li>
+      <li><b>Template literals:</b> Allow for easier string interpolation and multi-line strings using backticks (`) and ${} for embedding expressions.
+        <pre><code>
+const name = "Alice";
+const age = 30;
+
+// String concatenation
+const message1 = "Hello, " + name + "! You are " + age + " years old.";
+
+// Template literal
+const message2 = `Hello, ${name}! You are ${age} years old.`;
+        </code></pre>
+      </li>
+      <li><b>Destructuring:</b> Enables extracting values from objects and arrays into distinct variables.
+        <pre><code>
+const person = { name: "Bob", age: 25 };
+
+// Traditional way to access properties
+const name1 = person.name;
+const age1 = person.age;
+
+// Destructuring
+const { name: name2, age: age2 } = person;
+        </code></pre>
+      </li>
+      <li><b>Classes:</b> Offer a cleaner syntax for defining object blueprints with constructors, methods, and inheritance.
+        <pre><code>
+class Person {
+  constructor(name) {
+    this.name = name;
+  }
+
+  greet() {
+    console.log(`Hello, my name is ${this.name}.`);
+  }
+}
+
+const alice = new Person("Alice");
+alice.greet(); // Output: "Hello, my name is Alice."
+        </code></pre>
+      </li>
+      <li><b>Modules:</b> Facilitate better code organization and reusability by allowing you to split code into separate files and import/export functionality.
+        <pre><code>
+// myModule.js
+export function myFunction() {
+  // ...
+}
+
+// main.js
+import { myFunction } from './myModule.js';
+myFunction();
+        </code></pre>
+      </li>
+    </ul>
+    <p><b>Resources:</b></p>
+    <ul>
+      <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import" target="_blank">MDN Web Docs: import</a></li>
+      <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/export" target="_blank">MDN Web Docs: export</a></li>
+      <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions" target="_blank">MDN Web Docs: Arrow Functions</a></li>
+      <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals" target="_blank">MDN Web Docs: Template Literals</a></li>
+      <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment" target="_blank">MDN Web Docs: Destructuring Assignment</a></li>
+      <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes" target="_blank">MDN Web Docs: Classes</a></li>
+    </ul>
+  </section>
+
+  <section class="example">
+    <h2>2. Async/Await - Taming Asynchronous Code</h2>
+    <p>Async/await simplified asynchronous programming in JavaScript by allowing you to write asynchronous code that reads more like synchronous code. This makes it easier to handle tasks like fetching data from a server or performing time-consuming operations without blocking the main thread.</p>
+    <input type="text" id="api-endpoint" placeholder="Enter API endpoint">
+    <button onclick="fetchData()">Fetch Data</button>
+  <div id="async-example-output"></div>
+  <script>
+    async function fetchData() {
+      const outputDiv = document.getElementById('async-example-output');
+      const apiEndpoint = document.getElementById('api-endpoint').value;
+      outputDiv.textContent = "Fetching data...";
+      try {
+        const response = await fetch(apiEndpoint);
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        const data = await response.json();
+        outputDiv.textContent = JSON.stringify(data, null, 2); // Display formatted JSON data
+      } catch (error) {
+        outputDiv.textContent = "Error fetching data: " + error;
+      }
+    }
+  </script>
+
+    <pre><code>
+async function fetchData() {
+  try {
+    const response = await fetch('https://api.example.com/data'); // Replace with a real API endpoint
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+    const data = await response.json();
+    console.log(data); // Process the fetched data
+  } catch (error) {
+    console.error('Error fetching data:', error);
+  }
+}
+
+fetchData();
+    </code></pre>
+    <p>In this example, the <code>fetchData</code> function is declared as <code>async</code>, which allows the use of <code>await</code> inside it. The <code>await</code> keyword pauses the execution of the function until the promise returned by <code>fetch</code> resolves, ensuring that the <code>data</code> variable is assigned the fetched data before proceeding. Error handling is also simplified with the <code>try...catch</code> block.</p>
+    <p><b>Resources:</b></p>
+    <ul>
+      <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function" target="_blank">MDN Web Docs: async function</a></li>
+      <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/await" target="_blank">MDN Web Docs: await</a></li>
+    </ul>
+  </section>
+
+  <section class="example">
+    <h2>3. TypeScript - Adding Type Safety</h2>
+    <p>TypeScript extends JavaScript by adding static typing. This means you can define the types of variables, function parameters, and return values, which helps catch errors during development and improves code maintainability.</p>
+    <pre><code>
+function greet(name: string, age: number): string {
+  return `Hello, ${name}! You are ${age} years old.`;
+}
+
+const message = greet("Alice", 30);
+console.log(message); // Output: "Hello, Alice! You are 30 years old."
+    </code></pre>
+    <p>In this example, the <code>greet</code> function specifies that the <code>name</code> parameter should be a string and the <code>age</code> parameter should be a number. It also indicates that the function returns a string. This type information helps prevent errors like passing a number to the <code>name</code> parameter or expecting a number as the return value.</p>
+    <p><b>Resources:</b></p>
+    <ul>
+      <li><a href="https://www.typescriptlang.org/" target="_blank">TypeScript Official Website</a></li>
+      <li><a href="https://www.typescriptlang.org/docs/" target="_blank">TypeScript Documentation</a></li>
+    </ul>
+  </section>
+
+  <section class="example">
+    <h2>4. WebAssembly (Wasm) - Performance Boost</h2>
+    <p>WebAssembly is a low-level binary instruction format that allows code written in languages like C, C++, and Rust to run in web browsers at near-native speed. This has opened up new possibilities for web development, enabling performance-critical applications like games, 3D graphics, and image/video editing to run smoothly in the browser.</p>
+    <p>WebAssembly modules can be imported into JavaScript code and interact with the DOM and other web APIs. This allows developers to leverage the performance benefits of WebAssembly for specific tasks while still using JavaScript for the overall application logic.</p>
+    <p><b>Resources:</b></p>
+    <ul>
+      <li><a href="https://webassembly.org/" target="_blank">WebAssembly Official Website</a></li>
+      <li><a href="https://developer.mozilla.org/en-US/docs/WebAssembly" target="_blank">MDN Web Docs: WebAssembly</a></li>
+    </ul>
+  </section>
+
+  <section class="example">
+    <h2>5. Frameworks and Libraries - React, Vue, Angular, and More</h2>
+    <p>JavaScript frameworks and libraries like React, Vue, and Angular have become essential tools for building complex and interactive web applications. They provide structure, reusable components, and efficient ways to manage application state and data flow.</p>
+    <ul></ul>
+      <li><b>React:</b> A component-based library that focuses on building user interfaces with a declarative approach. It uses a virtual DOM to optimize updates and provides tools for managing state and handling events.</li>
+      <li><b>Vue:</b> A progressive framework that is easy to learn and use, offering flexibility and scalability for building single-page applications and interactive components.</li>
+      <li><b>Angular:</b> A full-fledged framework with a strong emphasis on structure and testability. It uses TypeScript and provides a comprehensive set of tools for building large-scale applications.</li>
+    </ul>
+    <p>These frameworks have significantly improved the developer experience and enabled the creation of more sophisticated and dynamic web applications.</p>
+    <p><b>Resources:</b></p>
+    <ul>
+      <li><a href="https://reactjs.org/" target="_blank">React Official Website</a></li>
+      <li><a href="https://vuejs.org/" target="_blank">Vue Official Website</a></li>
+      <li><a href="https://angular.io/" target="_blank">Angular Official Website</a></li>
+    </ul>
+  </section>
+
+  <script>
+    // Add interactive elements or examples here if needed
+  </script>
+
+</body>
+</html>
